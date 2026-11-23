@@ -141,8 +141,15 @@ e.g. <code>11434, 13413, 2501</code>
 <td>Text</td>
 <td>For secondary rows: position of the primary row</td>
 </tr>
+<tr class="odd">
+<td><code>last_edited</code></td>
+<td>Date (with time)</td>
+<td>Optional: when the neuron was last proofread</td>
+</tr>
 </tbody>
 </table>
+<p><code><a href="../reference/octo_doctor.html">octo_doctor()</a></code> checks that these columns exist and have
+the right types.</p>
 <p>Keep all ID columns as <strong>Text</strong>. IDs are 64-bit
 integers, and Number columns silently change their last digits.</p>
 <p>Positions can be pasted straight from Neuroglancer:
@@ -160,6 +167,19 @@ tab-separated values all work.</p>
 second per point. Later runs only look up new seeds and refresh root
 IDs, which takes seconds. Running it daily (cron job or scheduled task)
 keeps the table current.</p>
+</div>
+<div class="section level2">
+<h2 id="neurons-edited-after-annotation">Neurons edited after annotation<a class="anchor" aria-label="anchor" href="#neurons-edited-after-annotation"></a>
+</h2>
+<p>With the optional <code>last_edited</code> column,
+<code><a href="../reference/octo_update_ids.html">octo_update_ids()</a></code> records when each neuron was last
+proofread. A SeaTable filter like <em><code>last_edited</code> is after
+<code>annotated_on</code></em> (or after the row’s modification date)
+lists neurons whose shape changed since someone annotated them, and
+which should be checked again.</p>
+<p>Outside the table, <code><a href="../reference/octo_last_modified.html">octo_last_modified()</a></code> gives the same
+for any root IDs, and <code><a href="../reference/octo_edit_history.html">octo_edit_history()</a></code> lists the
+individual merges and splits.</p>
 </div>
 <div class="section level2">
 <h2 id="neurons-seeded-more-than-once">Neurons seeded more than once<a class="anchor" aria-label="anchor" href="#neurons-seeded-more-than-once"></a>
@@ -202,16 +222,40 @@ group by <code>root_id</code>
 <span><span class="va">seeds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/octo_seeds.html">octo_seeds</a></span><span class="op">(</span>trusted_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>          <span class="co"># whole table, one row per neuron</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="meshes">Meshes<a class="anchor" aria-label="anchor" href="#meshes"></a>
+<h2 id="viewing-in-spelunker">Viewing in Spelunker<a class="anchor" aria-label="anchor" href="#viewing-in-spelunker"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/octo_scene.html">octo_scene</a></span><span class="op">(</span><span class="fu"><a href="../reference/octo_find_ids.html">octo_find_ids</a></span><span class="op">(</span><span class="st">"^MBON"</span><span class="op">)</span>, color_by <span class="op">=</span> <span class="st">"cell_type"</span>, seeds <span class="op">=</span> <span class="cn">TRUE</span>, open <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>This creates a short Spelunker link with the neurons selected,
+coloured by cell type, and their seed points as annotations, so you can
+share a set of neurons with one link.</p>
+</div>
+<div class="section level2">
+<h2 id="ids-from-elsewhere">IDs from elsewhere<a class="anchor" aria-label="anchor" href="#ids-from-elsewhere"></a>
+</h2>
+<p>For root IDs that are not in the seed table (lists from colleagues,
+old analyses), <code><a href="../reference/octo_latestid.html">octo_latestid()</a></code> finds the current IDs. When
+a neuron was split, it picks the piece that kept most of the
+original:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/octo_latestid.html">octo_latestid</a></span><span class="op">(</span><span class="va">old_ids</span>, details <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/octo_xyz2id.html">octo_xyz2id</a></span><span class="op">(</span><span class="st">"11434, 13413, 2501"</span><span class="op">)</span>      <span class="co"># neuron at a Spelunker position</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="meshes">Meshes<a class="anchor" aria-label="anchor" href="#meshes"></a>
+</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/octo_read_meshes.html">octo_read_meshes</a></span><span class="op">(</span><span class="va">ids</span><span class="op">)</span>          <span class="co"># 10% of faces, fast to plot</span></span>
 <span><span class="va">nl</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cell_type"</span>, <span class="st">"soma_side"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">nl</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nl_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/octo_read_meshes.html">octo_read_meshes</a></span><span class="op">(</span><span class="va">ids</span>, simplify <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>   <span class="co"># full resolution</span></span></code></pre></div>
 <p>Meshes are downloaded in parallel and kept in memory for the R
-session, so plotting the same neurons again is instant.</p>
+session, so plotting the same neurons again is instant. For overviews of
+many neurons, skeletons are lighter still:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/octo_skeletonize.html">octo_skeletonize</a></span><span class="op">(</span><span class="va">ids</span><span class="op">)</span></span>
+<span><span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">sk</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

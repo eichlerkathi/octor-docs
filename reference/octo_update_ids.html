@@ -103,6 +103,9 @@ Spelunker voxel coordinates), <code>supervoxel_id</code>, <code>root_id</code>,
 <code>root_id_previous</code>, <code>dup_status</code>, <code>same_as</code> (text), <code>root_changed_on</code>,
 <code>ids_checked_on</code> (date), <code>n_seeds</code> (number), <code>primary</code> (checkbox). Keep the
 ID columns as Text: Number columns corrupt 64-bit IDs.</p>
+<p>Optional: a Date column <code>last_edited</code> (with time) is filled with the time of
+each neuron's last proofreading edit (see <code><a href="octo_last_modified.html">octo_last_modified()</a></code>). Compare it
+with when a row was annotated to find neurons that changed afterwards.</p>
     </div>
 
     <div class="section level2">

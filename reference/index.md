@@ -15,6 +15,8 @@ Python environment, tokens and connections.
   [`octo_cloudvolume()`](https://eichlerkathi.github.io/octor-docs/reference/octo_cave_client.md)
   [`octo_seatable()`](https://eichlerkathi.github.io/octor-docs/reference/octo_cave_client.md)
   : Connect to CAVE and SeaTable
+- [`octo_doctor()`](https://eichlerkathi.github.io/octor-docs/reference/octo_doctor.md)
+  : Check that everything octor needs is set up
 - [`octor`](https://eichlerkathi.github.io/octor-docs/reference/octor-package.md)
   [`octor-package`](https://eichlerkathi.github.io/octor-docs/reference/octor-package.md)
   : octor: tools for the octo L1 larva connectome
@@ -35,17 +37,37 @@ neurons.
 - [`parse_position()`](https://eichlerkathi.github.io/octor-docs/reference/parse_position.md)
   : Parse position strings
 
-## Meshes, synapses and edits
+## IDs and edits
+
+Positions, supervoxels and root IDs; outdated IDs; edit history.
+
+- [`octo_xyz2id()`](https://eichlerkathi.github.io/octor-docs/reference/octo_xyz2id.md)
+  [`octo_rootid()`](https://eichlerkathi.github.io/octor-docs/reference/octo_xyz2id.md)
+  [`octo_leaves()`](https://eichlerkathi.github.io/octor-docs/reference/octo_xyz2id.md)
+  : Convert between positions, supervoxels and root IDs
+- [`octo_latestid()`](https://eichlerkathi.github.io/octor-docs/reference/octo_latestid.md)
+  : Update outdated root IDs
+- [`octo_last_modified()`](https://eichlerkathi.github.io/octor-docs/reference/octo_last_modified.md)
+  : When were neurons last edited?
+- [`octo_edit_history()`](https://eichlerkathi.github.io/octor-docs/reference/octo_edit_history.md)
+  : Edit history of neurons
+
+## Viewing
+
+- [`octo_scene()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene.md)
+  : Open neurons in Spelunker
+
+## Meshes, skeletons and synapses
 
 - [`octo_read_meshes()`](https://eichlerkathi.github.io/octor-docs/reference/octo_read_meshes.md)
   [`octo_clear_mesh_cache()`](https://eichlerkathi.github.io/octor-docs/reference/octo_read_meshes.md)
   : Read neuron meshes from CAVE
+- [`octo_skeletonize()`](https://eichlerkathi.github.io/octor-docs/reference/octo_skeletonize.md)
+  : Skeletonize octo neurons
 - [`octo_synapses()`](https://eichlerkathi.github.io/octor-docs/reference/octo_synapses.md)
   : Query synapses by root ID
 - [`octo_synapse_positions()`](https://eichlerkathi.github.io/octor-docs/reference/octo_synapse_positions.md)
   : Download all synapse positions from the annotation service
-- [`octo_edit_history()`](https://eichlerkathi.github.io/octor-docs/reference/octo_edit_history.md)
-  : Edit history of neurons
 
 ## Seymour and octo
 
@@ -55,6 +77,8 @@ datasets.
 - [`seymour2octo()`](https://eichlerkathi.github.io/octor-docs/reference/seymour2octo.md)
   [`octo2seymour()`](https://eichlerkathi.github.io/octor-docs/reference/seymour2octo.md)
   : Transform neurons between Seymour and octo
+- [`octo_nblast_seymour()`](https://eichlerkathi.github.io/octor-docs/reference/octo_nblast_seymour.md)
+  : Find matching Seymour neurons for octo neurons
 - [`xform_seymour_to_octo()`](https://eichlerkathi.github.io/octor-docs/reference/xform_seymour_to_octo.md)
   [`xform_octo_to_seymour()`](https://eichlerkathi.github.io/octor-docs/reference/xform_seymour_to_octo.md)
   : Transform points between Seymour and octo

@@ -60,6 +60,12 @@ Spelunker voxel coordinates), `supervoxel_id`, `root_id`,
 `ids_checked_on` (date), `n_seeds` (number), `primary` (checkbox). Keep
 the ID columns as Text: Number columns corrupt 64-bit IDs.
 
+Optional: a Date column `last_edited` (with time) is filled with the
+time of each neuron's last proofreading edit (see
+[`octo_last_modified()`](https://eichlerkathi.github.io/octor-docs/reference/octo_last_modified.md)).
+Compare it with when a row was annotated to find neurons that changed
+afterwards.
+
 ## Examples
 
 ``` r

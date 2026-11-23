@@ -5,9 +5,9 @@ natverse package fafbseg is installed, it uses
 [`fafbseg::simple_python()`](https://rdrr.io/pkg/fafbseg/man/simple_python.html)
 (the same Python environment as the rest of the natverse, which already
 contains caveclient, cloud-volume and seatable-api) and adds the mesh
-simplifier. Otherwise it creates its own virtual environment.
-`octo_python_check()` reports which Python reticulate uses and whether
-the packages are available.
+simplifier and skeletonizer. Otherwise it creates its own virtual
+environment. `octo_python_check()` reports which Python reticulate uses
+and whether the packages are available.
 
 ## Usage
 

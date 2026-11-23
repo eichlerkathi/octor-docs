@@ -37,6 +37,24 @@ are in nm. Spelunker shows octo in 8 nm voxels; convert with
 and
 [`octo_voxel2nm()`](https://eichlerkathi.github.io/octor-docs/reference/octo_nm2voxel.md).
 
+## Finding matching Seymour neurons
+
+[`octo_nblast_seymour()`](https://eichlerkathi.github.io/octor-docs/reference/octo_nblast_seymour.md)
+moves Seymour neurons into octo space and compares them with octo
+skeletons by NBLAST, which scores similarity of shape and position. For
+each octo neuron it lists the best Seymour candidates:
+
+``` r
+sey <- read_seymour_neurons("annotation:^MBON$", conn = conn)
+m <- octo_nblast_seymour(octo_find_ids("^MBON"), sey, top = 3)
+m[m$rank == 1, c("octo_id", "cell_type", "seymour_name", "score")]
+```
+
+Scores go up to 1. With a registration error of a few µm, compare
+against a sensible candidate set (same lineage or neuropil) rather than
+all of Seymour, and check the top matches by eye before filling
+`seymour_match_id`.
+
 ## How the registration was made
 
 1.  **Landmarks:** 30 corresponding points (midline points of every VNC

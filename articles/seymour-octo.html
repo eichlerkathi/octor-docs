@@ -93,6 +93,22 @@ nm. Spelunker shows octo in 8 nm voxels; convert with
 <code><a href="../reference/octo_nm2voxel.html">octo_nm2voxel()</a></code> and <code><a href="../reference/octo_nm2voxel.html">octo_voxel2nm()</a></code>.</p>
 </div>
 <div class="section level2">
+<h2 id="finding-matching-seymour-neurons">Finding matching Seymour neurons<a class="anchor" aria-label="anchor" href="#finding-matching-seymour-neurons"></a>
+</h2>
+<p><code><a href="../reference/octo_nblast_seymour.html">octo_nblast_seymour()</a></code> moves Seymour neurons into octo
+space and compares them with octo skeletons by NBLAST, which scores
+similarity of shape and position. For each octo neuron it lists the best
+Seymour candidates:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seymour_neurons.html">read_seymour_neurons</a></span><span class="op">(</span><span class="st">"annotation:^MBON$"</span>, conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/octo_nblast_seymour.html">octo_nblast_seymour</a></span><span class="op">(</span><span class="fu"><a href="../reference/octo_find_ids.html">octo_find_ids</a></span><span class="op">(</span><span class="st">"^MBON"</span><span class="op">)</span>, <span class="va">sey</span>, top <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">m</span><span class="op">[</span><span class="va">m</span><span class="op">$</span><span class="va">rank</span> <span class="op">==</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"octo_id"</span>, <span class="st">"cell_type"</span>, <span class="st">"seymour_name"</span>, <span class="st">"score"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<p>Scores go up to 1. With a registration error of a few µm, compare
+against a sensible candidate set (same lineage or neuropil) rather than
+all of Seymour, and check the top matches by eye before filling
+<code>seymour_match_id</code>.</p>
+</div>
+<div class="section level2">
 <h2 id="how-the-registration-was-made">How the registration was made<a class="anchor" aria-label="anchor" href="#how-the-registration-was-made"></a>
 </h2>
 <ol style="list-style-type: decimal">
@@ -137,7 +153,7 @@ easiest way to improve it.</p>
 <div class="section level2">
 <h2 id="refitting">Refitting<a class="anchor" aria-label="anchor" href="#refitting"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lm</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seymour_octo_landmarks.html">read_seymour_octo_landmarks</a></span><span class="op">(</span><span class="st">"seymour_octo_reg.csv"</span><span class="op">)</span></span>
 <span><span class="va">syn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/octo_synapse_positions.html">octo_synapse_positions</a></span><span class="op">(</span><span class="op">)</span>                       <span class="co"># resumable download</span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seymour_neurons.html">seymour_connectors</a></span><span class="op">(</span><span class="st">"annotation:^all_somas$"</span>, conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span></span>

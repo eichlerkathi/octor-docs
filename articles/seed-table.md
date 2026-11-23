@@ -23,6 +23,10 @@ Create these columns (names can be changed with the `cols` argument of
 | `dup_status` | Text | `unique`, `primary`, `secondary`, `CONFLICT ...`, `no segment` |
 | `primary` | Checkbox | The row you trust and fill in |
 | `same_as` | Text | For secondary rows: position of the primary row |
+| `last_edited` | Date (with time) | Optional: when the neuron was last proofread |
+
+[`octo_doctor()`](https://eichlerkathi.github.io/octor-docs/reference/octo_doctor.md)
+checks that these columns exist and have the right types.
 
 Keep all ID columns as **Text**. IDs are 64-bit integers, and Number
 columns silently change their last digits.
@@ -42,6 +46,21 @@ The first run looks up a supervoxel for every seed, roughly 0.3 to 1
 second per point. Later runs only look up new seeds and refresh root
 IDs, which takes seconds. Running it daily (cron job or scheduled task)
 keeps the table current.
+
+## Neurons edited after annotation
+
+With the optional `last_edited` column,
+[`octo_update_ids()`](https://eichlerkathi.github.io/octor-docs/reference/octo_update_ids.md)
+records when each neuron was last proofread. A SeaTable filter like
+*`last_edited` is after `annotated_on`* (or after the row’s modification
+date) lists neurons whose shape changed since someone annotated them,
+and which should be checked again.
+
+Outside the table,
+[`octo_last_modified()`](https://eichlerkathi.github.io/octor-docs/reference/octo_last_modified.md)
+gives the same for any root IDs, and
+[`octo_edit_history()`](https://eichlerkathi.github.io/octor-docs/reference/octo_edit_history.md)
+lists the individual merges and splits.
 
 ## Neurons seeded more than once
 
@@ -73,6 +92,29 @@ ids <- octo_find_ids("^L$", column = "soma_side")
 seeds <- octo_seeds(trusted_only = TRUE)          # whole table, one row per neuron
 ```
 
+## Viewing in Spelunker
+
+``` r
+octo_scene(octo_find_ids("^MBON"), color_by = "cell_type", seeds = TRUE, open = TRUE)
+```
+
+This creates a short Spelunker link with the neurons selected, coloured
+by cell type, and their seed points as annotations, so you can share a
+set of neurons with one link.
+
+## IDs from elsewhere
+
+For root IDs that are not in the seed table (lists from colleagues, old
+analyses),
+[`octo_latestid()`](https://eichlerkathi.github.io/octor-docs/reference/octo_latestid.md)
+finds the current IDs. When a neuron was split, it picks the piece that
+kept most of the original:
+
+``` r
+octo_latestid(old_ids, details = TRUE)
+octo_xyz2id("11434, 13413, 2501")      # neuron at a Spelunker position
+```
+
 ## Meshes
 
 ``` r
@@ -84,4 +126,10 @@ nl_full <- octo_read_meshes(ids, simplify = 1)   # full resolution
 ```
 
 Meshes are downloaded in parallel and kept in memory for the R session,
-so plotting the same neurons again is instant.
+so plotting the same neurons again is instant. For overviews of many
+neurons, skeletons are lighter still:
+
+``` r
+sk <- octo_skeletonize(ids)
+nat::plot3d(sk)
+```

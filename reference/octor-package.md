@@ -20,8 +20,16 @@ Settings are R options, so they can be changed per user or per project
 
 - `octor.seymour_reg`: path to the Seymour \<-\> octo registration file
 
-Tokens are never stored in the package. Put them in `~/.Renviron`, e.g.
-`CAVE_TOKEN_BRAININBRAIN=...` and `SEATABLE_API_TOKEN=...`.
+- `octor.spelunker_url`: viewer for
+  [`octo_scene()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene.md)
+  (default: the datastack's)
+
+- `octor.seed_cache_seconds`: how long the seed table is kept in memory
+
+Tokens are never stored in the package.
+[`octo_get_token()`](https://eichlerkathi.github.io/octor-docs/reference/octo_get_token.md)
+saves your CAVE token for you; otherwise put tokens in `~/.Renviron`,
+e.g. `CAVE_TOKEN_BRAININBRAIN=...` and `SEATABLE_API_TOKEN=...`.
 
 ## See also
 
