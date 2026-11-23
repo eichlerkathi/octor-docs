@@ -55,6 +55,7 @@ reused (a root ID always refers to the same mesh; edits create new IDs).</p>
 <span>  <span class="va">ids</span>,</span>
 <span>  simplify <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  fast <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  cache <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  timing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  annotate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -82,7 +83,14 @@ Uses the Python package fast-simplification (installed by
 
 
 <dt id="arg-threads">threads<a class="anchor" aria-label="anchor" href="#arg-threads"></a></dt>
-<dd><p>number of meshes downloaded at the same time</p></dd>
+<dd><p>number of meshes downloaded and simplified at the same time</p></dd>
+
+
+<dt id="arg-fast">fast<a class="anchor" aria-label="anchor" href="#arg-fast"></a></dt>
+<dd><p>join the mesh fragments with a quick vertex merge instead of
+CloudVolume's exact stitching along chunk boundaries (several times
+faster for large neurons; differences are invisible when plotting). Falls
+back to the standard download automatically where it does not apply.</p></dd>
 
 
 <dt id="arg-cache">cache<a class="anchor" aria-label="anchor" href="#arg-cache"></a></dt>

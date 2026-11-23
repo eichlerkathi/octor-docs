@@ -12,6 +12,7 @@ octo_read_meshes(
   ids,
   simplify = 0.1,
   threads = 8,
+  fast = TRUE,
   cache = TRUE,
   timing = FALSE,
   annotate = TRUE,
@@ -39,7 +40,15 @@ octo_clear_mesh_cache()
 
 - threads:
 
-  number of meshes downloaded at the same time
+  number of meshes downloaded and simplified at the same time
+
+- fast:
+
+  join the mesh fragments with a quick vertex merge instead of
+  CloudVolume's exact stitching along chunk boundaries (several times
+  faster for large neurons; differences are invisible when plotting).
+  Falls back to the standard download automatically where it does not
+  apply.
 
 - cache:
 
