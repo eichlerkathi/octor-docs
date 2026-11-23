@@ -181,6 +181,8 @@ Python environment, tokens and connections.
   : Set up or check the Python environment
 - [`octo_get_token()`](https://eichlerkathi.github.io/octor-docs/reference/octo_get_token.md)
   : Get a CAVE token and save it
+- [`octo_docs()`](https://eichlerkathi.github.io/octor-docs/reference/octo_docs.md)
+  : Open the octor documentation website
 - [`octo_cave_client()`](https://eichlerkathi.github.io/octor-docs/reference/octo_cave_client.md)
   [`octo_cloudvolume()`](https://eichlerkathi.github.io/octor-docs/reference/octo_cave_client.md)
   [`octo_seatable()`](https://eichlerkathi.github.io/octor-docs/reference/octo_cave_client.md)

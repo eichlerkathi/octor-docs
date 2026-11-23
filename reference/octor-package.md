@@ -23,6 +23,12 @@ Settings are R options, so they can be changed per user or per project
 Tokens are never stored in the package. Put them in `~/.Renviron`, e.g.
 `CAVE_TOKEN_BRAININBRAIN=...` and `SEATABLE_API_TOKEN=...`.
 
+## See also
+
+Useful links:
+
+- <https://eichlerkathi.github.io/octor-docs/>
+
 ## Author
 
 **Maintainer**: Katharina Eichler <eichlerkathi537@gmail.com>
