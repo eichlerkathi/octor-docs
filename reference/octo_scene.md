@@ -68,9 +68,14 @@ the link (invisibly if `open = TRUE`)
 
 ## Details
 
-The image and segmentation sources, voxel size and Spelunker address
-come from the datastack's settings on the CAVE server. Set
-`options(octor.spelunker_url = ...)` to use another viewer.
+The EM and segmentation sources come from `options(octor.image_source)`
+and `options(octor.segmentation_source)`, preset to the octo EM and
+segmentation as Spelunker expects them; set an option to `NULL` to use
+the datastack's setting instead. The voxel size and Spelunker address
+come from the datastack's settings; `options(octor.spelunker_url)`
+overrides the viewer.
+[`octo_scene_sources()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene_sources.md)
+shows what is used.
 
 ## Examples
 

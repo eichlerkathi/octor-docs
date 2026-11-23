@@ -15,6 +15,7 @@ octo_skeletonize(
   waves = 1,
   step_size = 1,
   remove_disconnected = 10,
+  isolate = TRUE,
   ...
 )
 ```
@@ -43,6 +44,12 @@ octo_skeletonize(
 - remove_disconnected:
 
   drop mesh pieces with fewer faces than this
+
+- isolate:
+
+  run skeletor in a separate Python process (default). A crash there
+  (e.g. a library clash between R and Python on macOS) then only fails
+  that neuron, with the error shown, instead of crashing R.
 
 - ...:
 

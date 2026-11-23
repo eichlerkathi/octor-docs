@@ -112,9 +112,12 @@ neuron's seed (if found in the seed table)</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The image and segmentation sources, voxel size and Spelunker address come
-from the datastack's settings on the CAVE server. Set
-<code>options(octor.spelunker_url = ...)</code> to use another viewer.</p>
+    <p>The EM and segmentation sources come from <code>options(octor.image_source)</code> and
+<code>options(octor.segmentation_source)</code>, preset to the octo EM and segmentation
+as Spelunker expects them; set an option to <code>NULL</code> to use the datastack's
+setting instead. The voxel size and Spelunker address come from the
+datastack's settings; <code>options(octor.spelunker_url)</code> overrides the viewer.
+<code><a href="octo_scene_sources.html">octo_scene_sources()</a></code> shows what is used.</p>
     </div>
 
     <div class="section level2">

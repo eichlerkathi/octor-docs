@@ -24,6 +24,13 @@ Settings are R options, so they can be changed per user or per project
   [`octo_scene()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene.md)
   (default: the datastack's)
 
+- `octor.segmentation_source`, `octor.image_source`: layer sources for
+  [`octo_scene()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene.md),
+  as they appear in a working Spelunker state. Preset to the octo
+  segmentation and EM (`precomputed://gs://fly-larva-sf/octo/clahe`);
+  `NULL` takes them from the datastack's settings (see
+  [`octo_scene_sources()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene_sources.md))
+
 - `octor.seed_cache_seconds`: how long the seed table is kept in memory
 
 Tokens are never stored in the package.

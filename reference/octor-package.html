@@ -56,6 +56,11 @@ API token (default <code>SEATABLE_API_TOKEN</code>)</p></li>
 <li><p><code>octor.voxel_size</code>: Spelunker voxel size in nm (default <code>c(8, 8, 8)</code>)</p></li>
 <li><p><code>octor.seymour_reg</code>: path to the Seymour &lt;-&gt; octo registration file</p></li>
 <li><p><code>octor.spelunker_url</code>: viewer for <code><a href="octo_scene.html">octo_scene()</a></code> (default: the datastack's)</p></li>
+<li><p><code>octor.segmentation_source</code>, <code>octor.image_source</code>: layer sources for
+<code><a href="octo_scene.html">octo_scene()</a></code>, as they appear in a working Spelunker state. Preset to the
+octo segmentation and EM (<code>precomputed://gs://fly-larva-sf/octo/clahe</code>);
+<code>NULL</code> takes them from the datastack's settings (see
+<code><a href="octo_scene_sources.html">octo_scene_sources()</a></code>)</p></li>
 <li><p><code>octor.seed_cache_seconds</code>: how long the seed table is kept in memory</p></li>
 </ul><p>Tokens are never stored in the package. <code><a href="octo_get_token.html">octo_get_token()</a></code> saves your CAVE
 token for you; otherwise put tokens in <code>~/.Renviron</code>, e.g.

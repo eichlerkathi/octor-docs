@@ -55,6 +55,7 @@ with other neurons by NBLAST (see <code><a href="octo_nblast_seymour.html">octo_
 <span>  waves <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  step_size <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  remove_disconnected <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  isolate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -83,6 +84,12 @@ robust skeletons, larger steps coarser ones</p></dd>
 
 <dt id="arg-remove-disconnected">remove_disconnected<a class="anchor" aria-label="anchor" href="#arg-remove-disconnected"></a></dt>
 <dd><p>drop mesh pieces with fewer faces than this</p></dd>
+
+
+<dt id="arg-isolate">isolate<a class="anchor" aria-label="anchor" href="#arg-isolate"></a></dt>
+<dd><p>run skeletor in a separate Python process (default). A crash
+there (e.g. a library clash between R and Python on macOS) then only
+fails that neuron, with the error shown, instead of crashing R.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

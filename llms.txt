@@ -228,6 +228,8 @@ Positions, supervoxels and root IDs; outdated IDs; edit history.
 
 - [`octo_scene()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene.md)
   : Open neurons in Spelunker
+- [`octo_scene_sources()`](https://eichlerkathi.github.io/octor-docs/reference/octo_scene_sources.md)
+  : Show the layer sources used by octo_scene()
 
 ## Meshes, skeletons and synapses
 
