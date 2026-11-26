@@ -34,6 +34,8 @@ neurons.
   : Read the seed table from SeaTable
 - [`octo_find_ids()`](https://eichlerkathi.github.io/octor-docs/reference/octo_find_ids.md)
   : Find root IDs by searching a SeaTable column
+- [`octo_annotations()`](https://eichlerkathi.github.io/octor-docs/reference/octo_annotations.md)
+  : Get seed table annotations for root IDs
 - [`parse_position()`](https://eichlerkathi.github.io/octor-docs/reference/parse_position.md)
   : Parse position strings
 
