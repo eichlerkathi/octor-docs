@@ -47,6 +47,8 @@ Positions, supervoxels and root IDs; outdated IDs; edit history.
   : Convert between positions, supervoxels and root IDs
 - [`octo_latestid()`](https://eichlerkathi.github.io/octor-docs/reference/octo_latestid.md)
   : Update outdated root IDs
+- [`octo_ids_at()`](https://eichlerkathi.github.io/octor-docs/reference/octo_ids_at.md)
+  : Root IDs of neurons at another time
 - [`octo_last_modified()`](https://eichlerkathi.github.io/octor-docs/reference/octo_last_modified.md)
   : When were neurons last edited?
 - [`octo_edit_history()`](https://eichlerkathi.github.io/octor-docs/reference/octo_edit_history.md)
