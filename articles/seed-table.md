@@ -42,10 +42,11 @@ octo_update_ids(dry_run = TRUE)   # see what would change
 octo_update_ids()                 # write to SeaTable
 ```
 
-The first run looks up a supervoxel for every seed, roughly 0.3 to 1
-second per point. Later runs only look up new seeds and refresh root
-IDs, which takes seconds. Running it daily (cron job or scheduled task)
-keeps the table current.
+The first run looks up a supervoxel for every seed. Seeds are looked up
+in batches, with each segmentation chunk downloaded once for all seeds
+in it, so thousands of seeds take minutes rather than hours. Later runs
+only look up new seeds and refresh root IDs, which takes seconds.
+Running it daily (cron job or scheduled task) keeps the table current.
 
 ## Neurons edited after annotation
 
@@ -113,6 +114,16 @@ kept most of the original:
 ``` r
 octo_latestid(old_ids, details = TRUE)
 octo_xyz2id("11434, 13413, 2501")      # neuron at a Spelunker position
+```
+
+[`octo_xyz2id()`](https://eichlerkathi.github.io/octor-docs/reference/octo_xyz2id.md)
+also handles many points, e.g. all synapse positions. Use a checkpoint
+file for long runs, so an interruption does not lose the work:
+
+``` r
+syn <- readRDS("synapses_v8_positions.rds")
+pre <- syn[, c("pre_pt_position_x", "pre_pt_position_y", "pre_pt_position_z")]
+syn$pre_root <- octo_xyz2id(pre, voxels = FALSE, checkpoint = "pre_ids.rds")
 ```
 
 ## Meshes

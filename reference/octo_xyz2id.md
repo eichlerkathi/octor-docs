@@ -10,7 +10,15 @@ also
 ## Usage
 
 ``` r
-octo_xyz2id(xyz, voxels = TRUE, root = TRUE, timestamp = NULL)
+octo_xyz2id(
+  xyz,
+  voxels = TRUE,
+  root = TRUE,
+  timestamp = NULL,
+  batch_size = 10000L,
+  checkpoint = NULL,
+  res = NULL
+)
 
 octo_rootid(svids, timestamp = NULL)
 
@@ -40,6 +48,22 @@ octo_leaves(id, level = 1)
   such as `"2026-11-01 14:00"` (read as UTC unless it has an offset,
   e.g. `"2026-11-01T15:00:00+01:00"`)
 
+- batch_size:
+
+  points looked up per batch. Each segmentation chunk is downloaded once
+  per batch for all points in it, so larger batches are faster for
+  clustered points (e.g. synapses) but use more memory.
+
+- checkpoint:
+
+  optional `.rds` file to save results after every batch. Rerunning with
+  the same file skips points already looked up, so a long run can be
+  resumed after an interruption.
+
+- res:
+
+  voxel size (nm) of the positions; overrides `voxels`
+
 - svids:
 
   supervoxel IDs (character)
@@ -63,5 +87,10 @@ if (FALSE) { # \dontrun{
 octo_xyz2id("11434, 13413, 2501")
 octo_xyz2id(cbind(91472, 107304, 20008), voxels = FALSE)
 octo_xyz2id("11434, 13413, 2501", timestamp = "2026-10-01")   # as it was then
+
+# many points, resumable
+syn <- readRDS("synapses_v8_positions.rds")
+pre <- syn[, c("pre_pt_position_x", "pre_pt_position_y", "pre_pt_position_z")]
+syn$pre_root <- octo_xyz2id(pre, voxels = FALSE, checkpoint = "pre_ids.rds")
 } # }
 ```

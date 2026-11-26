@@ -54,7 +54,15 @@ IDs are looked up as they were at that time instead of now (see also
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">octo_xyz2id</span><span class="op">(</span><span class="va">xyz</span>, voxels <span class="op">=</span> <span class="cn">TRUE</span>, root <span class="op">=</span> <span class="cn">TRUE</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">octo_xyz2id</span><span class="op">(</span></span>
+<span>  <span class="va">xyz</span>,</span>
+<span>  voxels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  root <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  timestamp <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  batch_size <span class="op">=</span> <span class="fl">10000L</span>,</span>
+<span>  checkpoint <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  res <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">octo_rootid</span><span class="op">(</span><span class="va">svids</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
@@ -85,6 +93,22 @@ or text such as <code>"2026-11-01 14:00"</code> (read as UTC unless it has an of
 e.g. <code>"2026-11-01T15:00:00+01:00"</code>)</p></dd>
 
 
+<dt id="arg-batch-size">batch_size<a class="anchor" aria-label="anchor" href="#arg-batch-size"></a></dt>
+<dd><p>points looked up per batch. Each segmentation chunk is
+downloaded once per batch for all points in it, so larger batches are
+faster for clustered points (e.g. synapses) but use more memory.</p></dd>
+
+
+<dt id="arg-checkpoint">checkpoint<a class="anchor" aria-label="anchor" href="#arg-checkpoint"></a></dt>
+<dd><p>optional <code>.rds</code> file to save results after every batch.
+Rerunning with the same file skips points already looked up, so a long
+run can be resumed after an interruption.</p></dd>
+
+
+<dt id="arg-res">res<a class="anchor" aria-label="anchor" href="#arg-res"></a></dt>
+<dd><p>voxel size (nm) of the positions; overrides <code>voxels</code></p></dd>
+
+
 <dt id="arg-svids">svids<a class="anchor" aria-label="anchor" href="#arg-svids"></a></dt>
 <dd><p>supervoxel IDs (character)</p></dd>
 
@@ -108,6 +132,11 @@ e.g. <code>"2026-11-01T15:00:00+01:00"</code>)</p></dd>
 <span class="r-in"><span><span class="fu">octo_xyz2id</span><span class="op">(</span><span class="st">"11434, 13413, 2501"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">octo_xyz2id</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">91472</span>, <span class="fl">107304</span>, <span class="fl">20008</span><span class="op">)</span>, voxels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">octo_xyz2id</span><span class="op">(</span><span class="st">"11434, 13413, 2501"</span>, timestamp <span class="op">=</span> <span class="st">"2026-10-01"</span><span class="op">)</span>   <span class="co"># as it was then</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># many points, resumable</span></span></span>
+<span class="r-in"><span><span class="va">syn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"synapses_v8_positions.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pre</span> <span class="op">&lt;-</span> <span class="va">syn</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pre_pt_position_x"</span>, <span class="st">"pre_pt_position_y"</span>, <span class="st">"pre_pt_position_z"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">syn</span><span class="op">$</span><span class="va">pre_root</span> <span class="op">&lt;-</span> <span class="fu">octo_xyz2id</span><span class="op">(</span><span class="va">pre</span>, voxels <span class="op">=</span> <span class="cn">FALSE</span>, checkpoint <span class="op">=</span> <span class="st">"pre_ids.rds"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
