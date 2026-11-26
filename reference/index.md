@@ -32,6 +32,8 @@ neurons.
   : Flag neurons seeded more than once
 - [`octo_seeds()`](https://eichlerkathi.github.io/octor-docs/reference/octo_seeds.md)
   : Read the seed table from SeaTable
+- [`octo_add_seeds()`](https://eichlerkathi.github.io/octor-docs/reference/octo_add_seeds.md)
+  : Add rows to the seed table
 - [`octo_find_ids()`](https://eichlerkathi.github.io/octor-docs/reference/octo_find_ids.md)
   : Find root IDs by searching a SeaTable column
 - [`octo_annotations()`](https://eichlerkathi.github.io/octor-docs/reference/octo_annotations.md)
